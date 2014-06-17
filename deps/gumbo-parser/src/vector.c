@@ -82,7 +82,7 @@ void* gumbo_vector_pop(
 }
 
 int gumbo_vector_index_of(GumboVector* vector, void* element) {
-  for (int i = 0; i < vector->length; ++i) {
+  for (unsigned int i = 0; i < vector->length; ++i) {
     if (vector->data[i] == element) {
       return i;
     }

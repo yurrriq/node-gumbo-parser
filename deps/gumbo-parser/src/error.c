@@ -55,7 +55,7 @@ static void print_tag_stack(
     GumboParser* parser, const GumboParserError* error,
     GumboStringBuffer* output) {
   print_message(parser, output, "  Currently open tags: ");
-  for (int i = 0; i < error->tag_stack.length; ++i) {
+  for (unsigned int i = 0; i < error->tag_stack.length; ++i) {
     if (i) {
       print_message(parser, output, ", ");
     }
@@ -251,7 +251,7 @@ void gumbo_init_errors(GumboParser* parser) {
 }
 
 void gumbo_destroy_errors(GumboParser* parser) {
-  for (int i = 0; i < parser->_output->errors.length; ++i) {
+  for (unsigned int i = 0; i < parser->_output->errors.length; ++i) {
     gumbo_error_destroy(parser, parser->_output->errors.data[i]);
   }
   gumbo_vector_destroy(parser, &parser->_output->errors);
