@@ -1211,7 +1211,7 @@ static void reconstruct_active_formatting_elements(GumboParser* parser) {
   gumbo_debug("Reconstructing elements from %d on %s parent.\n", i,
               gumbo_normalized_tagname(
                   get_current_node(parser)->v.element.tag));
-  for(; i < elements->length; ++i) {
+  for(; (unsigned int)i < elements->length; ++i) {
     // Step 7 & 8.
     assert(elements->length > 0);
     assert(i < elements->length);
@@ -1640,7 +1640,7 @@ static void merge_attributes(
 }
 
 const char* gumbo_normalize_svg_tagname(const GumboStringPiece* tag) {
-  for (int i = 0;
+  for (unsigned long i = 0;
        i < sizeof(kSvgTagReplacements) / sizeof(ReplacementEntry); ++i) {
     const ReplacementEntry* entry = &kSvgTagReplacements[i];
     if (gumbo_string_equals_ignore_case(tag, &entry->from)) {
@@ -1656,7 +1656,7 @@ const char* gumbo_normalize_svg_tagname(const GumboStringPiece* tag) {
 static void adjust_foreign_attributes(GumboParser* parser, GumboToken* token) {
   assert(token->type == GUMBO_TOKEN_START_TAG);
   const GumboVector* attributes = &token->v.start_tag.attributes;
-  for (int i = 0;
+  for (unsigned long i = 0;
        i < sizeof(kForeignAttributeReplacements) /
        sizeof(NamespacedAttributeReplacement); ++i) {
     const NamespacedAttributeReplacement* entry =
@@ -1676,7 +1676,7 @@ static void adjust_foreign_attributes(GumboParser* parser, GumboToken* token) {
 static void adjust_svg_attributes(GumboParser* parser, GumboToken* token) {
   assert(token->type == GUMBO_TOKEN_START_TAG);
   const GumboVector* attributes = &token->v.start_tag.attributes;
-  for (int i = 0;
+  for (unsigned long i = 0;
        i < sizeof(kSvgAttributeReplacements) / sizeof(ReplacementEntry); ++i) {
     const ReplacementEntry* entry = &kSvgAttributeReplacements[i];
     GumboAttribute* attr = gumbo_get_attribute(attributes, entry->from.data);
