@@ -72,6 +72,8 @@ Local<Object> read_text(GumboNode* node) {
         break;
     case GUMBO_NODE_CDATA:
         name = String::New("#cdata-section");
+    default:
+        break;
   }
   obj->Set(String::NewSymbol("nodeType"), type);
   obj->Set(String::NewSymbol("nodeName"), name);
@@ -197,7 +199,10 @@ Local<Object> recursive_search(GumboNode* node) {
 
     case GUMBO_NODE_ELEMENT:
         return read_element(node);
+        break;
   }
+
+  return Object::New();
 }
 
 Handle<Value> Method(const Arguments& args) {
